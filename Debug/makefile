@@ -9,8 +9,19 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
+-include DSP_K/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include CMSIS/DSP/Source/TransformFunctions/subdir.mk
+-include CMSIS/DSP/Source/SupportFunctions/subdir.mk
+-include CMSIS/DSP/Source/StatisticsFunctions/subdir.mk
+-include CMSIS/DSP/Source/MatrixFunctions/subdir.mk
+-include CMSIS/DSP/Source/FilteringFunctions/subdir.mk
+-include CMSIS/DSP/Source/FastMathFunctions/subdir.mk
+-include CMSIS/DSP/Source/ControllerFunctions/subdir.mk
+-include CMSIS/DSP/Source/ComplexMathFunctions/subdir.mk
+-include CMSIS/DSP/Source/CommonTables/subdir.mk
+-include CMSIS/DSP/Source/BasicMathFunctions/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -55,7 +66,7 @@ main-build: asinchr1.elf secondary-outputs
 
 # Tool invocations
 asinchr1.elf: $(OBJS) $(USER_OBJS) C:\projectCUBE\asinchr1\STM32F407VGTX_FLASH.ld
-	arm-none-eabi-gcc -o "asinchr1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\projectCUBE\asinchr1\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="asinchr1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "asinchr1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\projectCUBE\asinchr1\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="asinchr1.map" -Wl,--gc-sections -static -L"C:\projectCUBE\asinchr1\CMSIS\Lib\ARM" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -19,7 +19,18 @@ OBJCOPY_BIN :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+CMSIS/DSP/Source/BasicMathFunctions \
+CMSIS/DSP/Source/CommonTables \
+CMSIS/DSP/Source/ComplexMathFunctions \
+CMSIS/DSP/Source/ControllerFunctions \
+CMSIS/DSP/Source/FastMathFunctions \
+CMSIS/DSP/Source/FilteringFunctions \
+CMSIS/DSP/Source/MatrixFunctions \
+CMSIS/DSP/Source/StatisticsFunctions \
+CMSIS/DSP/Source/SupportFunctions \
+CMSIS/DSP/Source/TransformFunctions \
 Core/Src \
 Core/Startup \
+DSP_K \
 Drivers/STM32F4xx_HAL_Driver/Src \
 

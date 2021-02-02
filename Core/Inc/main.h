@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -50,8 +50,6 @@ extern "C" {
 
 /* USER CODE END EM */
 
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -66,8 +64,8 @@ void Error_Handler(void);
 #define IW_GPIO_Port GPIOC
 #define IU_Pin GPIO_PIN_1
 #define IU_GPIO_Port GPIOA
-#define Id_Pin GPIO_PIN_3
-#define Id_GPIO_Port GPIOA
+#define ID_Pin GPIO_PIN_3
+#define ID_GPIO_Port GPIOA
 #define FAULT_3_Pin GPIO_PIN_6
 #define FAULT_3_GPIO_Port GPIOA
 #define RESET_3_Pin GPIO_PIN_5
@@ -118,6 +116,25 @@ void Error_Handler(void);
 #define SB_2_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 
+void Device_MainTimerStart(void);
+void Device_MainTimerStop(void);
+void Device_ADC_Start(unsigned short *Device_ADC_Buf,unsigned short Lenght);
+void Device_SPI_ADC128_Start(unsigned short *Device_SPI_Buf);
+void Device_PWM_Channels_ON(void);
+void Device_PWM_Channels_OFF(void);
+unsigned short Device_Invertor_Fault_Detect(void);
+void Device_Rele_ON(void);
+void Device_Rele_OFF(void);
+void Device_Toggle_Led(GPIO_TypeDef *LED_GPIO_Port, uint16_t LED_Pin);
+void Device_On_Led(GPIO_TypeDef *LED_GPIO_Port, uint16_t LED_Pin);
+void Device_Off_Led(GPIO_TypeDef *LED_GPIO_Port, uint16_t LED_Pin);
+void Device_DAC_Out_PA4_CH1(float PA4_ch1);
+void Device_DAC_Out_PA5_CH2(float PA5_ch2);
+void Device_DAC_ON(void);
+void Device_CAN_Start(void);
+void Device_CAN_Start_Send(void);
+
+extern unsigned short Device_ADC_Buf[3];
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

@@ -2,7 +2,7 @@
 #define DSP_Kechkin_CM4_H
 
 #include "stm32f4xx.h"
-#include <arm_math.h>
+#include "arm_math.h"
 
 //#ifndef ARM_MATH_CM4
 //#define ARM_MATH_CM4
@@ -13,7 +13,7 @@
 //------------------------------------------------------------//
 
 /*
-                             Структура  Регулятора
+                             пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 */
 typedef struct {
 float  	Int;
@@ -74,7 +74,7 @@ float                                                    Out;
 }DSP_K_Filter_Init_Structure;
 
 // -----------------  Atan2 -----------------------------//
-#define M_PI                    3.141592653589793f
+//#define M_PI                    3.141592653589793f
 #define M_PI12 (M_PI/12.F)
 #define M_PI6 (M_PI/6.F)
 #define M_PI2 (M_PI/2.F)
