@@ -7,12 +7,12 @@
 #include "stm32f4xx.h"                  // Device header
 #include "DSP_Kechkin_CM4.h"
 /*
-Инициализация фильтра
-Пример настройки FIR фильтра
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ FIR пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-//25 Гц  порядок 10 
+//25 пїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 10 
 float   h_25_10[] =  {0.016192f,0.037976f,0.093139f,0.15587f,0.19682f,0.19682f,0.15587f,0.093139f,0.037976f,0.016192f};  
-//50 Гц  порядок 10 
+//50 пїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 10 
 float h_50_10[] ={0.016183f,0.037966f,0.093132f,0.15588f,0.19684f,0.19684f,0.15588f,0.093132f,0.037966f,0.016183f};    
 
 DSP_Filter_DPR_Sin.Resolution=10;               //Order
@@ -39,7 +39,7 @@ arm_fir_init_f32(&Filter->S, Filter->Resolution, Filter->Fir1_coef, Filter->firS
 
 
 /*
-Функция предназнчачена для вызова из программы обработчика АЦП
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 */
 void DSP_K_FIR_Process(DSP_K_Filter_Init_Structure* Filter, float In_ADC)
 {
@@ -53,7 +53,7 @@ arm_fir_f32(&Filter->S,Filter->input_signal , Filter->output_signal, DSP_K_Filte
 Filter->Out = Filter->output_signal[Filter->Resolution-1];
 }
 /*
-Функция предназнчачена для вызова из программы обработчика АЦП
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 */
 void DSP_K_MeanFilter_Process(DSP_K_Filter_Init_Structure* Filter, float In_ADC)
 {
@@ -259,12 +259,13 @@ void Speed_measure(Speed_structure *Spd){
   if((Spd->angle_d[0] - Spd->angle_d[1]) < 2){
     if((Spd->angle_d[1] - Spd->angle_d[2]) < 2){
       if((Spd->angle_d[2] - Spd->angle_d[3]) < 2){
-        Spd->speed = Spd->angle_d[2]*0.0610426f;
+        Spd->speed = Spd->angle_d[2]*0.061f;
       }
     }
   }
 
   Spd->speed_el = Spd->speed*3.0f;
+
   if(Spd->speed_el > 200){
     Spd->speed = 0;
     Spd->speed_el = 0;
@@ -289,27 +290,27 @@ void DSP_K_Regulator(DSP_K_Regulator_Structure *Reg)
   //volatile static float IntOld =0.0f;
   
 
-//Ошибка
+//пїЅпїЅпїЅпїЅпїЅпїЅ
 Reg->d = Reg->In  - Reg->Fb;
 
-//Интегральная часть
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 //Reg->Int = (Reg->d  * 0.00005f*Reg->k_Int+IntOld)*0.5f;
 Reg->Int += Reg->d  * 0.00005f*Reg->k_Int;
 //Reg->Int *= 0.5f;
 //IntOld = Reg->Int;
 
-////Ограничение              [от -1 до 1]
+////пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ              [пїЅпїЅ -1 пїЅпїЅ 1]
 //if(IntOld<-1.0f) IntOld = -1.0f;
 //if(IntOld> 1.0f) IntOld =  1.0f;
-//Ограничение              [от -1 до 1]
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ              [пїЅпїЅ -1 пїЅпїЅ 1]
 
 if(Reg->Int< Reg->DownLimit) Reg->Int = Reg->DownLimit;
 if(Reg->Int> Reg->UpLimit)   Reg->Int = Reg->UpLimit;
 
-//Пропорциональная часть
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 Reg->P  = Reg->k_P *Reg->d;
 
-//Ограничение              [от -1 до 1]
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ              [пїЅпїЅ -1 пїЅпїЅ 1]
 Reg->Out = Reg->Int + Reg->P;
      if(Reg->Out<Reg->DownLimit) Reg->Out =  Reg->DownLimit;
 else if(Reg->Out>Reg->UpLimit)   Reg->Out =  Reg->UpLimit;

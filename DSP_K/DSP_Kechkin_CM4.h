@@ -36,7 +36,7 @@ typedef struct {
 uint16_t  	cnt_s;
 
 uint16_t  	angle_f[5];
-uint16_t        angle_d[4];
+uint16_t    angle_d[4];
 
 float  	speed;
 float  	speed_el;
