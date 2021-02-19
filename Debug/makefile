@@ -65,8 +65,8 @@ all: main-build
 main-build: asinchr1.elf secondary-outputs
 
 # Tool invocations
-asinchr1.elf: $(OBJS) $(USER_OBJS) C:\projectCUBE\asinchr1\STM32F407VGTX_FLASH.ld
-	arm-none-eabi-gcc -o "asinchr1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\projectCUBE\asinchr1\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="asinchr1.map" -Wl,--gc-sections -static -L"C:\projectCUBE\asinchr1\CMSIS\Lib\ARM" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+asinchr1.elf: $(OBJS) $(USER_OBJS) D:\users\Anton\Documents\GitHub\asinchr1\STM32F407VGTX_FLASH.ld
+	arm-none-eabi-gcc -o "asinchr1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\users\Anton\Documents\GitHub\asinchr1\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="asinchr1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
