@@ -60,10 +60,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define R1_DOWN_Pin GPIO_PIN_0
+#define R1_DOWN_GPIO_Port GPIOC
 #define IV_Pin GPIO_PIN_1
 #define IV_GPIO_Port GPIOC
 #define IW_Pin GPIO_PIN_2
 #define IW_GPIO_Port GPIOC
+#define R2_UP_Pin GPIO_PIN_3
+#define R2_UP_GPIO_Port GPIOC
 #define IU_Pin GPIO_PIN_1
 #define IU_GPIO_Port GPIOA
 #define Id_Pin GPIO_PIN_3
@@ -136,7 +140,7 @@ void Device_DAC_ON(void);
 void Device_CAN_Start(void);
 void Device_CAN_Start_Send(void);
 
-extern unsigned short Device_ADC_Buf[3];
+unsigned short Device_ADC_Buf[6];
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

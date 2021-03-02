@@ -60,7 +60,7 @@ float Delta_Angle_Gain = 1.0f;
 float Amp;
 float Freq;
 float AngleSpeed;
-extern unsigned short Device_ADC_Buf[3];
+extern unsigned short Device_ADC_Buf[6];
 
 uint16_t cnt;
 float flag = 0.1f;
@@ -69,6 +69,8 @@ float neww;
 Speed_structure speed;
 float i_ABC[3];
 float i_ab[2];
+
+uint8_t flag_start = 0;
 
 /* USER CODE END 0 */
 
@@ -233,34 +235,53 @@ static float Bufer_A_B[2];
     DSP_K_Conv_ABC_to_ab(i_ABC,i_ab);
     
     if (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0) == 1){
-    	neww = 50.0f;
+    	flag_start = 1;
     }
 
     if (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_2) == 1){
     	neww = 0.0f;
+    	flag_start = 0;
     }
 
-    if (speed.speed_el <= 10){
-    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+    if (flag_start){
+    	neww = (round)(((float)Device_ADC_Buf[4] + 1.0f) / 82.0f);
+    	if (neww > 50.0f){
+    		neww = 50.0f;
+    	}
+    }
+
+    if (flag_start){
+        if (speed.speed_el <= 10){
+        	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+        	LED_4_GPIO_Port->BSRR = LED_4_Pin<<16;
+        	LED_3_GPIO_Port->BSRR = LED_3_Pin<<16;
+        	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
+        } else if (speed.speed_el <= 25){
+        	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+        	LED_4_GPIO_Port->BSRR = LED_4_Pin;
+        	LED_3_GPIO_Port->BSRR = LED_3_Pin<<16;
+        	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
+        } else if (speed.speed_el <= 40){
+        	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+        	LED_4_GPIO_Port->BSRR = LED_4_Pin;
+        	LED_3_GPIO_Port->BSRR = LED_3_Pin;
+        	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
+        } else {
+        	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+        	LED_4_GPIO_Port->BSRR = LED_4_Pin;
+        	LED_3_GPIO_Port->BSRR = LED_3_Pin;
+        	LED_2_GPIO_Port->BSRR = LED_2_Pin;
+        }
+
+    }  else {
+    	LED_1_GPIO_Port->BSRR = LED_1_Pin<<16;
     	LED_4_GPIO_Port->BSRR = LED_4_Pin<<16;
     	LED_3_GPIO_Port->BSRR = LED_3_Pin<<16;
     	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
-    } else if (speed.speed_el <= 25){
-    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
-    	LED_4_GPIO_Port->BSRR = LED_4_Pin;
-    	LED_3_GPIO_Port->BSRR = LED_3_Pin<<16;
-    	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
-    } else if (speed.speed_el <= 40){
-    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
-    	LED_4_GPIO_Port->BSRR = LED_4_Pin;
-    	LED_3_GPIO_Port->BSRR = LED_3_Pin;
-    	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
-    } else {
-    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
-    	LED_4_GPIO_Port->BSRR = LED_4_Pin;
-    	LED_3_GPIO_Port->BSRR = LED_3_Pin;
-    	LED_2_GPIO_Port->BSRR = LED_2_Pin;
     }
+
+
+
 
   
   if(cnt <= 98){
