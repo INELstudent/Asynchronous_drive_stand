@@ -1,5 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
 ################################################################################
 
 -include ../makefile.init
@@ -39,49 +40,55 @@ endif
 
 -include ../makefile.defs
 
-BUILD_ARTIFACT_NAME := asinchr1
+OPTIONAL_TOOL_DEPS := \
+$(wildcard ../makefile.defs) \
+$(wildcard ../makefile.init) \
+$(wildcard ../makefile.targets) \
+
+
+BUILD_ARTIFACT_NAME := Asynchronous_drive_stand
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX := 
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME).$(BUILD_ARTIFACT_EXTENSION)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-asinchr1.elf \
+Asynchronous_drive_stand.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-asinchr1.list \
+Asynchronous_drive_stand.list \
 
 OBJCOPY_BIN += \
-asinchr1.bin \
+Asynchronous_drive_stand.bin \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: asinchr1.elf secondary-outputs
+main-build: Asynchronous_drive_stand.elf secondary-outputs
 
 # Tool invocations
-asinchr1.elf: $(OBJS) $(USER_OBJS) D:\users\Anton\Documents\GitHub\asinchr1\STM32F407VGTX_FLASH.ld
-	arm-none-eabi-gcc -o "asinchr1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\users\Anton\Documents\GitHub\asinchr1\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="asinchr1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Asynchronous_drive_stand.elf: $(OBJS) $(USER_OBJS) C:\Users\Sokolov\Documents\GitHub\Asynchronous_drive_stand\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Asynchronous_drive_stand.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Sokolov\Documents\GitHub\Asynchronous_drive_stand\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Asynchronous_drive_stand.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-default.size.stdout: $(EXECUTABLES)
+default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-size  $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-asinchr1.list: $(EXECUTABLES)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "asinchr1.list"
+Asynchronous_drive_stand.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Asynchronous_drive_stand.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-asinchr1.bin: $(EXECUTABLES)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "asinchr1.bin"
+Asynchronous_drive_stand.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Asynchronous_drive_stand.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 

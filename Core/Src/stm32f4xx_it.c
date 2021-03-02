@@ -240,6 +240,28 @@ static float Bufer_A_B[2];
     	neww = 0.0f;
     }
 
+    if (speed.speed_el <= 10){
+    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+    	LED_4_GPIO_Port->BSRR = LED_4_Pin<<16;
+    	LED_3_GPIO_Port->BSRR = LED_3_Pin<<16;
+    	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
+    } else if (speed.speed_el <= 25){
+    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+    	LED_4_GPIO_Port->BSRR = LED_4_Pin;
+    	LED_3_GPIO_Port->BSRR = LED_3_Pin<<16;
+    	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
+    } else if (speed.speed_el <= 40){
+    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+    	LED_4_GPIO_Port->BSRR = LED_4_Pin;
+    	LED_3_GPIO_Port->BSRR = LED_3_Pin;
+    	LED_2_GPIO_Port->BSRR = LED_2_Pin<<16;
+    } else {
+    	LED_1_GPIO_Port->BSRR = LED_1_Pin;
+    	LED_4_GPIO_Port->BSRR = LED_4_Pin;
+    	LED_3_GPIO_Port->BSRR = LED_3_Pin;
+    	LED_2_GPIO_Port->BSRR = LED_2_Pin;
+    }
+
   
   if(cnt <= 98){
     cnt++;
